@@ -1,4 +1,5 @@
 import colors from "vuetify/es5/util/colors"
+import firebaseConfig from "./firebase.config"
 
 export default {
     // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -44,7 +45,8 @@ export default {
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
     // https://go.nuxtjs.dev/pwa
-        "@nuxtjs/pwa"
+        "@nuxtjs/pwa",
+        "@nuxtjs/firebase"
     ],
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -54,6 +56,21 @@ export default {
         }
     },
 
+    firebase: {
+        config: firebaseConfig,
+        services: {
+            auth: {
+                persistence: "local",
+                initialize: {
+                    onAuthStateChangedAction: "onAuthStateChangedAction",
+                    subscribeManually: false
+                },
+                ssr: false
+            },
+            firestore: true,
+            storage: true
+        }
+    },
     // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
     vuetify: {
         customVariables: ["~/assets/variables.scss"],
