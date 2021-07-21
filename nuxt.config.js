@@ -31,6 +31,10 @@ export default {
     plugins: [
     ],
 
+    router: {
+        middleware: ["auth"]
+    },
+
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
 
@@ -62,7 +66,7 @@ export default {
             auth: {
                 persistence: "local",
                 initialize: {
-                    onAuthStateChangedAction: "onAuthStateChangedAction",
+                    onAuthStateChangedAction: "auth/onStateChanged",
                     subscribeManually: false
                 },
                 ssr: false

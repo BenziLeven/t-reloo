@@ -1,7 +1,13 @@
 <template>
   <v-row align="center" justify="center">
-    <v-col cols="12" md="8" sm="8" align="center" class="mt-24">
-      <v-card class="elevation-10 text-left sign-in-form">
+    <v-col
+      cols="12"
+      sm="8"
+      md="4"
+      align="center"
+      class="mt-24"
+    >
+      <v-card class="elevation-10 text-center sign-in-form">
         <v-card-title class="align-center justify-center">
           T-Reloo
         </v-card-title>
@@ -24,11 +30,11 @@
             />
           </v-form>
         </v-card-text>
-        <v-card-actions class="text-center">
+        <v-card-actions class="text-center d-flex flex-column align-center">
           <v-btn
             class="login-button"
             depressed
-            large
+            x-large
             @click="signIn"
           >
             Login
@@ -41,6 +47,9 @@
         absolute
         bottom
         center
+        :elevation="12"
+        color="error"
+        multi-line
       >
         {{ snackbarText }}
       </v-snackbar>
@@ -66,8 +75,14 @@ export default {
     },
     methods: {
         signIn () {
-            this.snackbarText = `FAKE -- You are signed in with [${this.auth.email} - ${this.auth.password}]`
-            this.snackbar = true
+            this.$fire.auth.signInWithEmailAndPassword(this.auth.email, this.auth.password)
+                .then((user) => {
+                    this.$nuxt.$router.push("/")
+                })
+                .catch((error) => {
+                    this.snackbarText = `Error:\n${error.message}`
+                    this.snackbar = true
+                })
         }
     }
 }
