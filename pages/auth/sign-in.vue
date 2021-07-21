@@ -1,5 +1,5 @@
 <template>
-  <v-row align="center" justify="center">
+  <v-row align="center" justify="center" @keyup.enter="signIn">
     <v-col
       cols="12"
       sm="8"
@@ -60,7 +60,8 @@
 <script>
 export default {
     name: "SignInPage",
-    data () {
+    layout: "sign-in",
+    data() {
         return {
             snackbar: false,
             snackbarText: "No error message",
@@ -74,7 +75,7 @@ export default {
         title: "Sign In"
     },
     methods: {
-        signIn () {
+        signIn() {
             this.$fire.auth.signInWithEmailAndPassword(this.auth.email, this.auth.password)
                 .then((user) => {
                     this.$nuxt.$router.push("/")
