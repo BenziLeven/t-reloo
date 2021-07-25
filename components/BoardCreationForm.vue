@@ -67,8 +67,11 @@ export default {
 </script>
 
 <style>
-.v-color-picker {
+.v-color-picker, .v-color-picker-canvas {
     width: 100%;
-    margin-bottom: 32px;
 }
+.v-color-picker {
+    margin-bottom: 64px;
+}
+
 </style>

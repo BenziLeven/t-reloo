@@ -1,21 +1,18 @@
 <template>
-  <div class="d-flex flex-wrap align-center justify-start">
+  <div class="d-flex flex-wrap align-center justify-start" style="margin: 0 -12px;">
     <p v-if="boards.length === 0">
       You have no boards yet.
     </p>
     <v-card
       v-for="board in boards"
       :key="board.id"
-      :style="board.image.downloadURL != '' ? `background:url(${board.image.downloadURL});`: board.color ? `background-color:${board.color}` : ''"
+      :style="`background-color:${board.background_color}`"
       class="jello-board-tile"
       @click="$router.push('/boards/' + board.id)"
     >
-      <v-card-title :style="board.image.downloadURL != '' ? 'color:#fff':''">
+      <v-card-title>
         {{ board.title }}
       </v-card-title>
-      <v-card-subtitle :style="board.image.downloadURL != '' ? 'color:#fff':''">
-        created {{ board.dateCreated | formatDate }}
-      </v-card-subtitle>
     </v-card>
     <v-form />
   </div>
@@ -35,5 +32,13 @@ export default {
 </script>
 
 <style scoped>
+.jello-board-tile {
+    margin: 12px;
+    width: 240px;
+    height: 160px;
+}
 
+.v-card__title {
+word-break: keep-all;
+}
 </style>

@@ -28,9 +28,21 @@ import MyBoards from "~/components/MyBoards"
 
 export default {
     components: { BoardCreationForm, MyBoards },
+    async asyncData({ $fire, store }) {
+        const userId = store.state.auth.user.uid
+        const collectionUrl = `/users/${userId}/boards`
+
+        const userBoards = (await $fire.firestore.collection(collectionUrl).get()).docs
+        const boards = []
+
+        userBoards.forEach((board) => {
+            if (board.exists) { boards.push(board.data()) }
+        })
+
+        return { boards }
+    },
     data() {
         return {
-            boards: [],
             snackbarText: "no error",
             snackbar: false,
             dialog: false
